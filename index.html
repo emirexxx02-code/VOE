@@ -89,4 +89,119 @@
   .hero p{color:var(--muted);font-size:14px;margin:6px 0 0}
   .sec-title{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:18px 0 8px}
   .weather-banner{
-    border-radius:var(--radius);padding:13px 15px;margin-bottom:14px;display:flex;align-items:center
+    border-radius:var(--radius);padding:13px 15px;margin-bottom:14px;display:flex;align-items:center;gap:12px;
+    border:1px solid var(--line);background:#fff;
+  }
+  .weather-banner.rain{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#f59e0b;color:#78350f}
+  .weather-banner.clear{background:linear-gradient(135deg,#f0fdf9,#e3f4f2);border-color:#99f6e4;color:#0f5132}
+  .weather-ico{font-size:28px;flex:none}
+  .shot{border:1.5px dashed #c3d0e0;border-radius:var(--radius);background:#f8fbfd;padding:10px;text-align:center}
+  .shot .thumb{position:relative;border-radius:10px;overflow:hidden;background:#0f172a}
+  .shot .thumb img{display:block;width:100%;max-height:290px;object-fit:contain}
+  .shot .empty{padding:24px 10px;color:var(--muted)}
+  .shot .empty .ico{font-size:32px;display:block;margin-bottom:6px}
+  .shot .row{margin-top:10px}
+  .barcode-row{display:flex;gap:8px}
+  .barcode-row input{flex:1}
+  .dupe-box{background:var(--red-soft);border:1.5px solid #fca5a5;border-radius:12px;padding:12px;margin-bottom:12px}
+  .dupe-box b{color:var(--red);font-size:13px;display:block;margin-bottom:4px}
+  .scan-row{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eef2f7}
+  .scan-row:last-child{border-bottom:0}
+  .scan-row img{width:50px;height:50px;border-radius:8px;object-fit:cover;background:#e2e8f0;flex:none;border:1px solid var(--line);cursor:pointer}
+  .scan-row .m{flex:1;min-width:0}
+  .scan-row b{font-size:13.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .scan-row small{color:var(--muted);font-size:12px;display:block}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center}
+  .stat b{display:block;font-size:18px;line-height:1.15}
+  .stat small{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:700}
+  .stat.hi b{color:var(--accent)}
+  .stat.warn b{color:var(--amber)}
+  .stat.blue b{color:var(--blue)}
+  .stat.red b{color:var(--red)}
+  .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .filters .full{grid-column:1/-1}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .gcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.15s}
+  .gcard.done{opacity:.75;background:#f7faf9}
+  .gcard .ph{position:relative;background:#0f172a;cursor:zoom-in}
+  .gcard .ph img{display:block;width:100%;height:175px;object-fit:cover}
+  .gcard .ph .zoom{position:absolute;right:8px;bottom:8px;background:rgba(15,23,42,.78);color:#fff;font-size:11px;padding:4px 9px;border-radius:8px;font-weight:600}
+  .gcard .body{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .gcard .coo{font-size:16px;font-weight:800;letter-spacing:.2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}
+  th{background:#f8fafc;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid #eef2f7;vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  .modal{position:fixed;inset:0;background:rgba(8,15,28,.88);z-index:80;display:none;align-items:center;justify-content:center;padding:14px;flex-direction:column;gap:12px;overflow-y:auto}
+  .modal.on{display:flex}
+  .modal-box{background:#fff;color:var(--ink);border-radius:16px;padding:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative}
+  .modal img{max-width:100%;max-height:76vh;border-radius:12px;object-fit:contain;background:#000}
+  .note{font-size:12.5px;color:var(--muted);background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  @media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.filters,.row2,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body onload="boot()">
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <div class="dot">▣</div>
+      <div style="min-width:0">
+        <b id="tbTitle">Scanner de Comprovantes</b>
+        <small id="tbSub">Gestão de Entregas, Conferência &amp; Pagamentos</small>
+      </div>
+    </div>
+    <span class="pill" id="tbCloud">local</span>
+    <button class="btn sm ghost" onclick="abrirModalInstalar()">📲 Instalar App</button>
+    <button class="btn sm ghost" id="btnSair" style="display:none" onclick="sair()">Sair</button>
+  </div>
+</div>
+
+<div id="screen-login" class="wrap">
+  <div class="hero">
+    <h1>Acesso ao Sistema</h1>
+    <p>Entre com seu <b>E-mail</b> ou <b>CPF</b> cadastrado pela empresa[span_0](start_span)[span_0](end_span). Se for seu primeiro acesso, você definirá sua senha pessoal agora[span_1](start_span)[span_1](end_span).</p>
+  </div>
+  <div class="card">
+    <label class="fld"><span>E-mail ou CPF cadastrado</span>
+      <input id="loginIdent" placeholder="exemplo@empresa.com ou 000.000.000-00">
+    </label>
+    <label class="fld"><span>Senha pessoal</span>
+      <input id="loginSenha" type="password" placeholder="Digite sua senha">
+    </label>
+    <button class="btn primary block" onclick="fazerLogin()">Entrar no sistema</button>
+  </div>
+</div>
+
+<div id="screen-admin" class="wrap wide" style="display:none">
+  <div class="tabs">
+    <button class="tab active" onclick="mudarAbaAdmin('cadastros')">🏢 Cadastros Ativos</button>
+  </div>
+  <div class="card">
+    <h3>Painel Administrativo Ativo</h3>
+    <p>Gerenciamento de empresas, entregadores e pagamentos.</p>
+  </div>
+</div>
+
+<script>
+  function boot() {
+    console.log("Sistema carregado com sucesso!");
+    const login = document.getElementById('screen-login');
+    if(login) login.style.display = 'block';
+  }
+  function fazerLogin() {
+    alert("Função de login acionada.");
+  }
+  function sair() {
+    location.reload();
+  }
+  function abrirModalInstalar() {
+    alert("Para instalar, adicione à tela inicial do seu celular.");
+  }
+  function mudarAbaAdmin(aba) {
+    console.log("Aba ativa:", aba);
+  }
+</script>
+</body>
+</html>
