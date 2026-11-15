@@ -153,4 +153,50 @@
     <button class="btn sm ghost" onclick="abrirModalInstalar()">📲 Instalar App</button>
     <button class="btn sm ghost" id="btnSair" style="display:none" onclick="sair()">Sair</button>
   </div>
+</div><div id="screen-login" class="wrap" style="display:none">
+  <div class="hero">
+    <h1>Acesso ao Sistema</h1>
+    <p>Entre com seu <b>E-mail</b> ou <b>CPF</b> cadastrado pela empresa[span_0](start_span)[span_0](end_span). Se for seu primeiro acesso, você definirá sua senha pessoal agora[span_1](start_span)[span_1](end_span).</p>
+  </div>
+  <div class="card">
+    <label class="fld"><span>E-mail ou CPF cadastrado</span>
+      <input id="loginIdent" placeholder="exemplo@empresa.com ou 000.000.000-00">
+    </label>
+    <label class="fld"><span>Senha pessoal</span>
+      <input id="loginSenha" type="password" placeholder="Digite sua senha">
+    </label>
+    <button class="btn primary block" onclick="fazerLogin()">Entrar no sistema</button>
+  </div>
 </div>
+
+<div id="screen-admin" class="wrap wide" style="display:none">
+  <div class="tabs">
+    <button class="tab active" onclick="mudarAbaAdmin('cadastros')">🏢 Cadastros Ativos</button>
+  </div>
+  <div class="card">
+    <h3>Painel Administrativo Ativo</h3>
+    <p>Gerenciamento de empresas, entregadores e pagamentos.</p>
+  </div>
+</div>
+
+<script>
+  function boot() {
+    console.log("Sistema carregado com sucesso!");
+    const login = document.getElementById('screen-login');
+    if(login) login.style.display = 'block';
+  }
+  function fazerLogin() {
+    alert("Função de login acionada.");
+  }
+  function sair() {
+    location.reload();
+  }
+  function abrirModalInstalar() {
+    alert("Para instalar, adicione à tela inicial do seu celular.");
+  }
+  function mudarAbaAdmin(aba) {
+    console.log("Aba ativa:", aba);
+  }
+</script>
+</body>
+</html>
